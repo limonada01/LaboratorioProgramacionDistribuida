@@ -8,7 +8,7 @@ import java.util.logging.*;
 
 public class Persona extends Thread {
 
-    static String[] signos={"Sagitario","Leo","Capricornio"};
+    static String[] signos={"sagitario","leo","capricornio"};
     static String[] fechas={"11/05/2023","12/05/2023","13/05/2023"};
 
     protected Socket sk;
@@ -25,9 +25,11 @@ public class Persona extends Thread {
             dos = new DataOutputStream(sk.getOutputStream());//buffer de salida
             dis = new DataInputStream(sk.getInputStream());//buffer de entrada
             
-            String consulta=signos[(int)Math.random()*signos.length]+"-"+fechas[(int)Math.random()*fechas.length];
+            int num=(int)(Math.random()*signos.length);
+            System.out.println("----------------->  id: "+id+" numero consulta horoscopo: "+num);
+            String consulta=signos[num]+"-"+fechas[(int)(Math.random()*fechas.length)];
             
-            System.out.println(id + " Consulta horoscopo y clima: "+consulta);
+            System.out.println("Persona "+id + " Consulta horoscopo y clima: "+consulta);
              
             dos.writeUTF(consulta);
             

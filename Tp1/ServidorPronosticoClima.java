@@ -8,9 +8,9 @@ public class ServidorPronosticoClima {
     
     public static void main(String args[]) throws IOException {
         ServerSocket ss;
-        System.out.print("Inicializando servidor... ");
+        System.out.print("Inicializando servidor Pronostico Clima... ");
         try {
-            ss = new ServerSocket(10578);
+            ss = new ServerSocket(20001);
             System.out.println("\t[OK]");
             int idSession = 0;
             while (true) {

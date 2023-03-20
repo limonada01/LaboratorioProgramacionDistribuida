@@ -29,7 +29,7 @@ public class ServidorCentralHilo extends Thread {
 
             //puertos diferentes para cada conexion satelite??
             skHoroscopo = new Socket("127.0.0.1", 20000);
-            skClima = new Socket("127.0.0.1", 20000);
+            skClima = new Socket("127.0.0.1", 20001);
 
             dosHoroscopo = new DataOutputStream(skHoroscopo.getOutputStream());//buffer de salida
             disHoroscopo = new DataInputStream(skHoroscopo.getInputStream());//buffer de entrada
@@ -44,6 +44,8 @@ public class ServidorCentralHilo extends Thread {
     public void desconnectar() {
         try {
             socket.close();
+            skHoroscopo.close();//????? 
+            skClima.close();//????
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }

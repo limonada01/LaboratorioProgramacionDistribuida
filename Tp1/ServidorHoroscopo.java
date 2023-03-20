@@ -9,9 +9,9 @@ public class ServidorHoroscopo {
 
     public static void main(String args[]) throws IOException {
         ServerSocket ss;
-        System.out.print("Inicializando servidor... ");
+        System.out.print("Inicializando servidor Horoscopo ");
         try {
-            ss = new ServerSocket(10578);
+            ss = new ServerSocket(20000);
             System.out.println("\t[OK]");
             int idSession = 0;
             while (true) {
@@ -19,11 +19,12 @@ public class ServidorHoroscopo {
                 socket = ss.accept();
                 System.out.println("Nueva conexión entrante: "+socket);
                 ((ServidorCentralHilo) new ServidorCentralHilo(socket, idSession)).start();
-                idSession++;
-            }
+                idSession++;            }
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentral.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
 
 }
