@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.logging.*;
 
 public class ServidorHoroscopoHilo extends Thread{
-    private final String[] horoscopos={"Horoscopo Sagitario","Horoscopo Leo","Horoscopo Capricornio"};
+    private final String[] horoscopos={"[Esto seria el horoscopo Sagitario]","[Esto seria el horoscopo Leo]","[Esto seria el horoscopo Capricornio]"};
     private Socket socket;
     private int idSession;
 
@@ -15,8 +15,6 @@ public class ServidorHoroscopoHilo extends Thread{
     public ServidorHoroscopoHilo(Socket socket, int id){
         this.socket = socket;
         this.idSession = id;
-
-
         try {
             dosCliente = new DataOutputStream(socket.getOutputStream());
             disCliente = new DataInputStream(socket.getInputStream());
@@ -40,8 +38,9 @@ public class ServidorHoroscopoHilo extends Thread{
 
         try {
             signoSolicitado = disCliente.readUTF();
+            System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo: "+signoSolicitado);
             String respuesta=getHoroscopo(signoSolicitado);
-            dosCliente.writeUTF("Horoscopo de "+signoSolicitado+ ": "+respuesta);//respuesta final para cliente
+            dosCliente.writeUTF("Horoscopo de "+signoSolicitado+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }

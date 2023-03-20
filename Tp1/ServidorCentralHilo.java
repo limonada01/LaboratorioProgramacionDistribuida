@@ -27,7 +27,8 @@ public class ServidorCentralHilo extends Thread {
             dosCliente = new DataOutputStream(socket.getOutputStream());
             disCliente = new DataInputStream(socket.getInputStream());
 
-            //puertos diferentes para cada conexion satelite??
+
+            //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
             skHoroscopo = new Socket("127.0.0.1", 20000);
             skClima = new Socket("127.0.0.1", 20001);
 
@@ -38,6 +39,7 @@ public class ServidorCentralHilo extends Thread {
             disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
 
         } catch (IOException ex) {
+
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -55,20 +57,11 @@ public class ServidorCentralHilo extends Thread {
         String accion = "";
         try {
             accion = disCliente.readUTF();
+            System.out.println("Consulta de cliente para servidorCentralHilo: "+accion);
             String[] consultas=separadorConsultas(accion);//[0]=signo,[1]=fecha
-            
             String respuestaSigno = consultaHoroscopo(consultas[0]);
             String respuestaClima = consultaClima(consultas[1]);
-
-            dosCliente.writeUTF("Horoscopo: "+respuestaSigno+" Clima: "+respuestaClima );//respuesta final para cliente
-            
-            /* 
-              if(accion.equals("hola")){
-                System.out.println("El cliente con idSesion "+this.idSessio+" saluda");
-                dos.writeUTF("adios");
-            }
-            */
-            
+            dosCliente.writeUTF(respuestaSigno+" y "+respuestaClima );//respuesta final para cliente
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,6 +73,7 @@ public class ServidorCentralHilo extends Thread {
         try {
             dosHoroscopo.writeUTF(signo);
             respuesta = disHoroscopo.readUTF();
+
         } catch (IOException ex) {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,8 +83,8 @@ public class ServidorCentralHilo extends Thread {
     private String consultaClima(String fecha) {
         String respuesta="";
         try {
-            dosCliente.writeUTF(fecha);
-            respuesta = disCliente.readUTF();
+            dosClima.writeUTF(fecha);
+            respuesta = disClima.readUTF();
         } catch (IOException ex) {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -14,9 +14,9 @@ public class ServidorCentral {
             while (true) {
                 Socket socket;
                 socket = ss.accept();
-                System.out.println("Nueva conexión entrante: "+socket);
-                //((ServidorCentralHilo) new ServidorCentralHilo(socket, idSession)).start();
-                //idSession++;
+                System.out.println("Nueva conexión entrante en servidor central: "+socket);
+                ((ServidorCentralHilo) new ServidorCentralHilo(socket, idSession)).start();
+                idSession++;
             }
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentral.class.getName()).log(Level.SEVERE, null, ex);

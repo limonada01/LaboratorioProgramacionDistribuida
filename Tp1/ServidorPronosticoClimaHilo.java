@@ -15,16 +15,12 @@ public class ServidorPronosticoClimaHilo extends Thread{
     public ServidorPronosticoClimaHilo(Socket socket, int id){
         this.socket = socket;
         this.idSession = id;
-
-
         try {
             dosCliente = new DataOutputStream(socket.getOutputStream());
             disCliente = new DataInputStream(socket.getInputStream());
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-
     }
 
     public void desconnectar() {
@@ -40,8 +36,9 @@ public class ServidorPronosticoClimaHilo extends Thread{
 
         try {
             fechaSolicitada = disCliente.readUTF();
+            System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo: "+fechaSolicitada);
             String respuesta=getClima(fechaSolicitada);
-            dosCliente.writeUTF("Clima para fecha: "+fechaSolicitada+ ": "+respuesta);//respuesta final para cliente
+            dosCliente.writeUTF("Clima para fecha: "+fechaSolicitada+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }

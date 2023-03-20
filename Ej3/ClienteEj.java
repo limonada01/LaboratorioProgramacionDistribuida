@@ -29,7 +29,7 @@ class Persona extends Thread {
         }
     }
 }
-public class Cliente {
+public class ClienteEj {
     public static void main(String[] args) {
         ArrayList<Thread> clients = new ArrayList<Thread>();
         for (int i = 0; i < 5; i++) {

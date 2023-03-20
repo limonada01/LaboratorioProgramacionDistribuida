@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.logging.*;
-public class Servidor {
+public class ServidorEj {
     public static void main(String args[]) throws IOException {
         ServerSocket ss;
         System.out.print("Inicializando servidor... ");

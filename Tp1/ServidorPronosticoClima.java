@@ -16,8 +16,8 @@ public class ServidorPronosticoClima {
             while (true) {
                 Socket socket;
                 socket = ss.accept();
-                System.out.println("Nueva conexión entrante: "+socket);
-                ((ServidorCentralHilo) new ServidorCentralHilo(socket, idSession)).start();
+                System.out.println("Nueva conexión entrante en ServidorPronosticoClima: "+socket);
+                ((ServidorPronosticoClimaHilo) new ServidorPronosticoClimaHilo(socket, idSession)).start();
                 idSession++;
             }
         } catch (IOException ex) {

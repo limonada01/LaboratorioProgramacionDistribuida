@@ -35,7 +35,7 @@ public class Persona extends Thread {
             
             String respuesta="";
             respuesta = dis.readUTF();
-            System.out.println(id + " Servidor devuelve: " + respuesta);
+            System.out.println("Servidor devuelve: " + respuesta+ ". como respuesta a persona"+id);
             dis.close();
             dos.close();
             sk.close();
