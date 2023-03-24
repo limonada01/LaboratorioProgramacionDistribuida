@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.logging.*;
 public class ServidorCentral {
     public static void main(String args[]) throws IOException {
+        Cache cache = new Cache();
         ServerSocket ss;
         System.out.print("Inicializando servidor Central ");
         try {
@@ -15,7 +16,7 @@ public class ServidorCentral {
                 Socket socket;
                 socket = ss.accept();
                 System.out.println("Nueva conexión entrante en servidor central: "+socket);
-                ((ServidorCentralHilo) new ServidorCentralHilo(socket, idSession)).start();
+                ((ServidorCentralHilo) new ServidorCentralHilo(socket, idSession, cache)).start();
                 idSession++;
             }
         } catch (IOException ex) {

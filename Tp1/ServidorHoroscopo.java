@@ -18,12 +18,6 @@ public class ServidorHoroscopo {
                 Socket socket;
                 socket = ss.accept();
                 System.out.println("Nueva conexión entrante en ServidorHoroscopo: "+socket);
-
-
-                //Estaba haciendo new ServidorClienteHilo, en lugar de crear hilos de horoscopo
-                // una hora estuve hasta que me di cuenta charly troll
-
-
                 ((ServidorHoroscopoHilo) new ServidorHoroscopoHilo(socket, idSession)).start(); //Arranca los hilos
                 idSession++;
             }

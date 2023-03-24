@@ -5,10 +5,9 @@ import java.net.*;
 import java.util.logging.*;
 
 public class ServidorHoroscopoHilo extends Thread{
-    private final String[] horoscopos={"[Esto seria el horoscopo Sagitario]","[Esto seria el horoscopo Leo]","[Esto seria el horoscopo Capricornio]"};
+    private final String[] horoscopos={"horoscopoRandom1","horoscopoRandom2","horoscopoRandom3"};
     private Socket socket;
     private int idSession;
-
     private DataOutputStream dosCliente;
     private DataInputStream disCliente;
     
@@ -21,8 +20,6 @@ public class ServidorHoroscopoHilo extends Thread{
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-
     }
 
     public void desconnectar() {
@@ -38,7 +35,7 @@ public class ServidorHoroscopoHilo extends Thread{
 
         try {
             signoSolicitado = disCliente.readUTF();
-            System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo: "+signoSolicitado);
+            System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo"+idSession+": "+signoSolicitado);
             String respuesta=getHoroscopo(signoSolicitado);
             dosCliente.writeUTF("Horoscopo de "+signoSolicitado+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
@@ -50,13 +47,8 @@ public class ServidorHoroscopoHilo extends Thread{
 
     public String getHoroscopo(String signo){
         String respuesta="";
-        
-        switch(signo){
-            case "sagitario": respuesta=horoscopos[0];break;
-            case "leo": respuesta=horoscopos[1];break;
-            case "capricornio": respuesta=horoscopos[2];break;
-            default: respuesta="signo incorrecto";
-        }
-        return respuesta;
+        int indexHoroscopoRandom=(int)(Math.random()*horoscopos.length);
+        return  horoscopos[indexHoroscopoRandom];
+
     }
 }

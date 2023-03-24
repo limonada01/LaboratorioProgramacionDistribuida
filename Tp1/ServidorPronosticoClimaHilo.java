@@ -36,7 +36,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
 
         try {
             fechaSolicitada = disCliente.readUTF();
-            System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo: "+fechaSolicitada);
+            System.out.println("Consulta de ServidorCentral para servidorClimaHilo"+idSession+": "+fechaSolicitada);
             String respuesta=getClima(fechaSolicitada);
             dosCliente.writeUTF("Clima para fecha: "+fechaSolicitada+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
@@ -48,13 +48,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
 
     public String getClima(String fecha){
         String respuesta="";
-        
-        switch(fecha){
-            case "11/05/2023": respuesta=climas[0];break;
-            case "12/05/2023": respuesta=climas[1];break;
-            case "13/05/2023": respuesta=climas[2];break;
-            default: respuesta="fecha incorrecta";
-        }
-        return respuesta;
+        int indexClimasRandom=(int)(Math.random()*climas.length);
+        return  climas[indexClimasRandom];
     }
 }
