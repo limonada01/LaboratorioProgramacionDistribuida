@@ -1,11 +1,19 @@
 package Tp1;
-
 import java.io.*;
 import java.net.*;
 import java.util.logging.*;
 
 public class ServidorHoroscopoHilo extends Thread{
-    private final String[] horoscopos={"horoscopoRandom1","horoscopoRandom2","horoscopoRandom3"};
+    private final String[] horoscopos={
+            "horoscopoRandom1",
+            "horoscopoRandom2",
+            "horoscopoRandom3",
+            "horoscopoRandom5",
+            "horoscopoRandom6",
+            "horoscopoRandom7",
+            "horoscopoRandom8",
+            "horoscopoRandom9",
+    };
     private Socket socket;
     private int idSession;
     private DataOutputStream dosCliente;
@@ -32,11 +40,10 @@ public class ServidorHoroscopoHilo extends Thread{
 
     public void run(){
         String signoSolicitado = "";
-
         try {
             signoSolicitado = disCliente.readUTF();
             System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo"+idSession+": "+signoSolicitado);
-            String respuesta=getHoroscopo(signoSolicitado);
+            String respuesta=getHoroscopo();
             dosCliente.writeUTF("Horoscopo de "+signoSolicitado+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,10 +52,8 @@ public class ServidorHoroscopoHilo extends Thread{
 
     }
 
-    public String getHoroscopo(String signo){
-        String respuesta="";
+    public String getHoroscopo(){
         int indexHoroscopoRandom=(int)(Math.random()*horoscopos.length);
         return  horoscopos[indexHoroscopoRandom];
-
     }
 }

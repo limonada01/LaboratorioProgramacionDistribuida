@@ -1,5 +1,4 @@
 package Tp1;
-
 import java.io.*;
 import java.net.*;
 import java.util.logging.*;
@@ -19,16 +18,6 @@ public class ServidorCentralHilo extends Thread {
             dosCliente = new DataOutputStream(socket.getOutputStream());
             disCliente = new DataInputStream(socket.getInputStream());
 
-            //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
-            skHoroscopo = new Socket("127.0.0.1", 20000);
-            skClima = new Socket("127.0.0.1", 20001);
-
-            dosHoroscopo = new DataOutputStream(skHoroscopo.getOutputStream());//buffer de salida
-            disHoroscopo = new DataInputStream(skHoroscopo.getInputStream());//buffer de entrada
-
-            dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
-            disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
-
         } catch (IOException ex) {
 
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
@@ -36,9 +25,9 @@ public class ServidorCentralHilo extends Thread {
     }
     public void desconnectar() {
         try {
+            if(skHoroscopo!=null) skHoroscopo.close();
+            if(skClima!=null) skClima.close();
             socket.close();
-            skHoroscopo.close();
-            skClima.close();
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,9 +53,14 @@ public class ServidorCentralHilo extends Thread {
         try {
             respuesta= cache.getConsulta(signo);
             if(respuesta==null){
-                dosHoroscopo.writeUTF(signo);
-                respuesta = disHoroscopo.readUTF();
-                cache.putRespuesta(signo, respuesta);
+                if(cache.realizarConsulta(signo)) { //Si el hilo fue elegido para hacer la consulta
+                    this.establecerConexionHoroscopo();
+                    dosHoroscopo.writeUTF(signo);
+                    respuesta = disHoroscopo.readUTF();
+                    cache.putRespuesta(signo, respuesta);
+                }else{
+                    respuesta= cache.getConsulta(signo);
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,15 +72,46 @@ public class ServidorCentralHilo extends Thread {
         String respuesta="";
         try {
             respuesta= cache.getConsulta(fecha);
-            if(respuesta==null){
-                dosClima.writeUTF(fecha);
-                respuesta = disClima.readUTF();
-                cache.putRespuesta(fecha, respuesta);
+            if(respuesta==null){ //Si no lo pudo obtener de cache
+                if(cache.realizarConsulta(fecha)){ //Si el hilo fue elegido para hacer la consulta
+                    this.establecerConexionClima();
+                    dosClima.writeUTF(fecha);
+                    respuesta = disClima.readUTF();
+                    cache.putRespuesta(fecha, respuesta);
+                }else{//Si el hilo viene de estar bloqueado esperando a que se cargue en cache la saca de ahi
+                    respuesta= cache.getConsulta(fecha);
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
+    }
+
+    private void establecerConexionHoroscopo(){
+        try {
+            //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
+                skHoroscopo = new Socket("127.0.0.1", 20000);
+                dosHoroscopo = new DataOutputStream(skHoroscopo.getOutputStream());//buffer de salida
+                disHoroscopo = new DataInputStream(skHoroscopo.getInputStream());//buffer de entrada
+        } catch (IOException ex) {
+
+            Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void establecerConexionClima(){
+        try {
+            //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
+            skClima = new Socket("127.0.0.1", 20001);
+            dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
+            disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
+
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private String[] separadorConsultas(String consultaOrigen){

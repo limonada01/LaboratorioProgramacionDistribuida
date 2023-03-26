@@ -1,11 +1,8 @@
 package Tp1;
-
 import java.io.*;
 import java.net.*;
 import java.util.logging.*;
-
 public class ServidorPronosticoClima {
-    
     public static void main(String args[]) throws IOException {
         ServerSocket ss;
         System.out.print("Inicializando servidor Pronostico Clima... ");
@@ -24,5 +21,4 @@ public class ServidorPronosticoClima {
             Logger.getLogger(ServidorCentral.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
