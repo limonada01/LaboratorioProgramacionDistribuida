@@ -5,8 +5,6 @@ import java.net.*;
 import java.util.logging.*;
 
 public class ServidorHoroscopo {
-    
-
     public static void main(String args[]) throws IOException {
         ServerSocket ss;
         System.out.print("Inicializando servidor Horoscopo ");
@@ -25,7 +23,4 @@ public class ServidorHoroscopo {
             Logger.getLogger(ServidorCentral.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
-
 }

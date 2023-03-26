@@ -2,10 +2,7 @@ package Tp1;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.*;
 import java.util.logging.*;
-
-
 public class Persona extends Thread {
 
     static String[] signos={"SagitarIo","LeO","capricornio"};
@@ -27,11 +24,9 @@ public class Persona extends Thread {
             
             int num=(int)(Math.random()*signos.length);
             String consulta=signos[num]+"-"+fechas[(int)(Math.random()*fechas.length)];
-            
             System.out.println("Persona "+id + " Consulta horoscopo y clima: "+consulta);
-             
             dos.writeUTF(consulta);
-            
+
             String respuesta="";
             respuesta = dis.readUTF();
             System.out.println("Servidor devuelve: " + respuesta+ ". como respuesta a persona"+id);

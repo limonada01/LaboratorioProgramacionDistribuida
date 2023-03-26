@@ -1,9 +1,5 @@
 package Tp1;
-
-
 import java.util.*;
-
-
 public class Cliente {
     public static void main(String[] args) {
         ArrayList<Thread> clients = new ArrayList<Thread>();

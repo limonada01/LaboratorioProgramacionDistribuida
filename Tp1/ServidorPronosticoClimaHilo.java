@@ -1,9 +1,7 @@
 package Tp1;
-
 import java.io.*;
 import java.net.*;
 import java.util.logging.*;
-
 public class ServidorPronosticoClimaHilo extends Thread{
     private final String[] climas={
             "lluvia",
@@ -39,7 +37,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
         try {
             fechaSolicitada = disCliente.readUTF();
             System.out.println("Consulta de ServidorCentral para servidorClimaHilo"+idSession+": "+fechaSolicitada);
-            String respuesta=getClima(fechaSolicitada);
+            String respuesta=getClima();
             dosCliente.writeUTF("Clima para fecha: "+fechaSolicitada+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
 
@@ -48,8 +46,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
         desconnectar();
     }
 
-    public String getClima(String fecha){
-        String respuesta="";
+    public String getClima(){
         int indexClimasRandom=(int)(Math.random()*climas.length);
         return  climas[indexClimasRandom];
     }

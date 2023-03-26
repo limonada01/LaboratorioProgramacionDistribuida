@@ -1,5 +1,4 @@
 package Tp1;
-
 import java.io.*;
 import java.net.*;
 import java.util.logging.*;
@@ -18,21 +17,6 @@ public class ServidorCentralHilo extends Thread {
         try {
             dosCliente = new DataOutputStream(socket.getOutputStream());
             disCliente = new DataInputStream(socket.getInputStream());
-
-
-            /*
-
-            //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
-
-
-            skHoroscopo = new Socket("127.0.0.1", 20000);
-            skClima = new Socket("127.0.0.1", 20001);
-
-            dosHoroscopo = new DataOutputStream(skHoroscopo.getOutputStream());//buffer de salida
-            disHoroscopo = new DataInputStream(skHoroscopo.getInputStream());//buffer de entrada
-
-            dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
-            disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada*/
 
         } catch (IOException ex) {
 
@@ -64,20 +48,6 @@ public class ServidorCentralHilo extends Thread {
         desconnectar();
     }
 
-    /*private String consultaHoroscopo(String signo) {
-        String respuesta="";
-        try {
-            respuesta= cache.getConsulta(signo);
-            if(respuesta==null){
-                dosHoroscopo.writeUTF(signo);
-                respuesta = disHoroscopo.readUTF();
-                cache.putRespuesta(signo, respuesta);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return respuesta;
-    }*/
     private String consultaHoroscopo(String signo) {
         String respuesta="";
         try {
@@ -143,21 +113,6 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /*private String consultaClima(String fecha) {
-        String respuesta="";
-        try {
-            respuesta= cache.getConsulta(fecha);
-            if(respuesta==null){
-                dosClima.writeUTF(fecha);
-                respuesta = disClima.readUTF();
-                cache.putRespuesta(fecha, respuesta);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return respuesta;
-    }*/
 
     private String[] separadorConsultas(String consultaOrigen){
         String consultaLowerCase= consultaOrigen.toLowerCase();
