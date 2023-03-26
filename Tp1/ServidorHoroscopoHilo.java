@@ -41,12 +41,10 @@ public class ServidorHoroscopoHilo extends Thread{
 
     public void run(){
         String signoSolicitado = "";
-
         try {
             signoSolicitado = disCliente.readUTF();
             System.out.println("Consulta de ServidorCentral para servidorHoroscopoHilo"+idSession+": "+signoSolicitado);
-            String respuesta=getHoroscopo(signoSolicitado);
-            System.out.println("HASTA ACA VA");
+            String respuesta=getHoroscopo();
             dosCliente.writeUTF("Horoscopo de "+signoSolicitado+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,10 +53,8 @@ public class ServidorHoroscopoHilo extends Thread{
 
     }
 
-    public String getHoroscopo(String signo){
-        String respuesta="";
+    public String getHoroscopo(){
         int indexHoroscopoRandom=(int)(Math.random()*horoscopos.length);
         return  horoscopos[indexHoroscopoRandom];
-
     }
 }
