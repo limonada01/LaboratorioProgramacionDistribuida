@@ -36,9 +36,9 @@ public class ServidorCentralHilo extends Thread {
     }
     public void desconnectar() {
         try {
-            socket.close();
             skHoroscopo.close();
             skClima.close();
+            socket.close();
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,7 +59,7 @@ public class ServidorCentralHilo extends Thread {
         desconnectar();
     }
 
-    private String consultaHoroscopo(String signo) {
+    /*private String consultaHoroscopo(String signo) {
         String respuesta="";
         try {
             respuesta= cache.getConsulta(signo);
@@ -72,9 +72,48 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
+    }*/
+    private String consultaHoroscopo(String signo) {
+        String respuesta="";
+        try {
+            respuesta= cache.getConsulta(signo);
+            if(respuesta==null){
+                if(cache.realizarConsulta(signo)) { //Si el hilo fue elegido para hacer la consulta
+                    System.out.println("CONSULTA SIGNO: "+signo);
+                    dosHoroscopo.writeUTF(signo);
+                    respuesta = disHoroscopo.readUTF();
+                    cache.putRespuesta(signo, respuesta);
+                }else{
+                    respuesta= cache.getConsulta(signo);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return respuesta;
     }
 
     private String consultaClima(String fecha) {
+        String respuesta="";
+        try {
+            respuesta= cache.getConsulta(fecha);
+            if(respuesta==null){ //Si no lo pudo obtener de cache
+                if(cache.realizarConsulta(fecha)){ //Si el hilo fue elegido para hacer la consulta
+                    System.out.println("CONSULTA FECHA: "+fecha);
+                    dosClima.writeUTF(fecha);
+                    respuesta = disClima.readUTF();
+                    cache.putRespuesta(fecha, respuesta);
+                }else{//Si el hilo viene de estar bloqueado esperando a que se cargue en cache la saca de ahi
+                    respuesta= cache.getConsulta(fecha);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return respuesta;
+    }
+
+    /*private String consultaClima(String fecha) {
         String respuesta="";
         try {
             respuesta= cache.getConsulta(fecha);
@@ -87,7 +126,7 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
-    }
+    }*/
 
     private String[] separadorConsultas(String consultaOrigen){
         String consultaLowerCase= consultaOrigen.toLowerCase();

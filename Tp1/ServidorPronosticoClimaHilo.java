@@ -5,7 +5,11 @@ import java.net.*;
 import java.util.logging.*;
 
 public class ServidorPronosticoClimaHilo extends Thread{
-    private final String[] climas={"lluvia","soleado","nublado","viento"};
+    private final String[] climas={
+            "lluvia",
+            "soleado",
+            "nublado",
+            "viento"};
     private Socket socket;
     private int idSession;
 
