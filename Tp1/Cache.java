@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+
 public class Cache {
     Map<String, String> consultas;
-    Semaphore mutex = new Semaphore(1);
-    ArrayList<String> consultasEnEspera= new ArrayList<String>();
+    Semaphore mutex; 
+    ArrayList<String> consultasEnEspera;
     public Cache(){
-        consultas = new HashMap<String, String>();
+        this.mutex= new Semaphore(1);
+        this.consultasEnEspera=  new ArrayList<String>();
+        this.consultas = new HashMap<String, String>();
     }
 
     public String getConsulta(String consulta){ //Recibimos o el horoscopo o la fecha

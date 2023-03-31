@@ -6,10 +6,12 @@ import java.util.logging.*;
 
 public class ServidorHoroscopo {
     public static void main(String args[]) throws IOException {
+        //args[0]=puerto servidor Horoscopo
+        int puertoSH=Integer.parseInt(args[0]);
         ServerSocket ss;
         System.out.print("Inicializando servidor Horoscopo ");
         try {
-            ss = new ServerSocket(20000);
+            ss = new ServerSocket(puertoSH);
             System.out.println("\t[OK]");
             int idSession = 0;
             while (true) {

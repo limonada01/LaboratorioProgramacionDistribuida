@@ -11,14 +11,17 @@ public class Persona extends Thread {
     protected Socket sk;
     protected DataOutputStream dos;
     protected DataInputStream dis;
-    private int id;
-    public Persona(int id) {
+    private int id,puertoDestino;
+    private String ipHost;
+    public Persona(int id, String ipHost, int puertoDestino) {
         this.id = id;
+        this.ipHost=ipHost;
+        this.puertoDestino=puertoDestino;
     }
     @Override
     public void run() {
         try {
-            sk = new Socket("127.0.0.1", 10578);
+            sk = new Socket(ipHost,puertoDestino);
             dos = new DataOutputStream(sk.getOutputStream());//buffer de salida
             dis = new DataInputStream(sk.getInputStream());//buffer de entrada
             

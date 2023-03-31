@@ -9,10 +9,16 @@ public class ServidorCentralHilo extends Thread {
 
     private Cache cache;
     private int idSession;
-    public ServidorCentralHilo(Socket socket, int id, Cache cache) {
+    private String ipSH,ipSClima;
+    private int puertoSH,puertoSClima;
+    public ServidorCentralHilo(Socket socket, int id, Cache cache, String ipSH, String ipSClima, int puertoSH, int puertoSClima) {
         this.socket = socket;
         this.idSession = id;
         this.cache = cache;
+        this.ipSH=ipSH;
+        this.ipSClima=ipSClima;
+        this.puertoSH=puertoSH;
+        this.puertoSClima=puertoSClima;
 
         try {
             dosCliente = new DataOutputStream(socket.getOutputStream());
@@ -91,7 +97,7 @@ public class ServidorCentralHilo extends Thread {
     private void establecerConexionHoroscopo(){
         try {
             //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
-                skHoroscopo = new Socket("127.0.0.1", 20000);
+                skHoroscopo = new Socket(ipSH, puertoSH);
                 dosHoroscopo = new DataOutputStream(skHoroscopo.getOutputStream());//buffer de salida
                 disHoroscopo = new DataInputStream(skHoroscopo.getInputStream());//buffer de entrada
         } catch (IOException ex) {
@@ -103,7 +109,7 @@ public class ServidorCentralHilo extends Thread {
     private void establecerConexionClima(){
         try {
             //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
-            skClima = new Socket("127.0.0.1", 20001);
+            skClima = new Socket(ipSClima, puertoSClima);
             dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
             disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
 

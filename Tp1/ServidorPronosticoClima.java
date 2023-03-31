@@ -4,10 +4,12 @@ import java.net.*;
 import java.util.logging.*;
 public class ServidorPronosticoClima {
     public static void main(String args[]) throws IOException {
+        //args[0]=puerto servidor Clima
+        int puertoSClima=Integer.parseInt(args[0]);
         ServerSocket ss;
         System.out.print("Inicializando servidor Pronostico Clima... ");
         try {
-            ss = new ServerSocket(20001);
+            ss = new ServerSocket(puertoSClima);
             System.out.println("\t[OK]");
             int idSession = 0;
             while (true) {
