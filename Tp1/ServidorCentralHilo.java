@@ -29,7 +29,7 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void desconectar() {
+    private void desconnectar() {
         try {
             if(skHoroscopo!=null) skHoroscopo.close();
             if(skClima!=null) skClima.close();
@@ -51,7 +51,7 @@ public class ServidorCentralHilo extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        desconectar();
+        desconnectar();
     }
 
     private String consultaHoroscopo(String signo) {

@@ -6,9 +6,9 @@ import java.util.concurrent.Semaphore;
 
 
 public class Cache {
-    Map<String, String> consultas;
-    Semaphore mutex; 
-    ArrayList<String> consultasEnEspera;
+    private Map<String, String> consultas;
+    private Semaphore mutex; 
+    private ArrayList<String> consultasEnEspera;
     public Cache(){
         this.mutex= new Semaphore(1);
         this.consultasEnEspera=  new ArrayList<String>();

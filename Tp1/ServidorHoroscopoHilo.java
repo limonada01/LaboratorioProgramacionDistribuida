@@ -30,7 +30,7 @@ public class ServidorHoroscopoHilo extends Thread{
         }
     }
 
-    public void desconnectar() {
+    private void desconnectar() {
         try {
             socket.close();
         } catch (IOException ex) {
@@ -52,7 +52,7 @@ public class ServidorHoroscopoHilo extends Thread{
 
     }
 
-    public String getHoroscopo(){
+    private String getHoroscopo(){
         int indexHoroscopoRandom=(int)(Math.random()*horoscopos.length);
         return  horoscopos[indexHoroscopoRandom];
     }

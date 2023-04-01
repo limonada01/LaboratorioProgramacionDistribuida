@@ -24,7 +24,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
         }
     }
 
-    public void desconnectar() {
+    private void desconnectar() {
         try {
             socket.close();
         } catch (IOException ex) {
@@ -46,7 +46,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
         desconnectar();
     }
 
-    public String getClima(){
+    private String getClima(){
         int indexClimasRandom=(int)(Math.random()*climas.length);
         return  climas[indexClimasRandom];
     }

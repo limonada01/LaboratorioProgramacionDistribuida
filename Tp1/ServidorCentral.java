@@ -4,27 +4,30 @@ import java.net.*;
 import java.util.logging.*;
 
 public class ServidorCentral {
+    static private int puertoSCentral;
+    static private String ipServidorHoroscopo;
+    static private String ipServidorClima;
+    static private int puertoServidorHoroscopo;
+    static private int puertoServidorClima;
+    static private Cache cache;
+    static private ServerSocket ss;
     public static void main(String args[]) throws IOException {
-        //args[0]=puertoSCentral args[1]=ipSH args[2]=puertoSH args[3]=ipSClima args[4]=puertoSClima
-        //System.out.println("------> "+args[0]);
-        
-        int puertoSCentral=Integer.parseInt(args[0]);
-        String ipServidorHoroscopo=args[1];
-        //System.out.println("holaa");
-        String ipServidorClima=args[3];
-        int puertoServidorHoroscopo=Integer.parseInt(args[2]);
-        int puertoServidorClima=Integer.parseInt(args[4]);
+        //args[0]=puertoSCentral args[1]=ipSH args[2]=puertoSH args[3]=ipSClima args[4]=puertoSClima    
+        puertoSCentral=Integer.parseInt(args[0]);
+        ipServidorHoroscopo=args[1];
+        ipServidorClima=args[3];
+        puertoServidorHoroscopo=Integer.parseInt(args[2]);
+        puertoServidorClima=Integer.parseInt(args[4]);
 
 /* 
         int puertoScentral=10578;
         String ipServidorHoroscopo="127.0.0.1";
-        //System.out.println("holaa");
         String ipServidorClima="127.0.0.1";
         int puertoServidorHoroscopo=20000;
         int puertoServidorClima=20001;
 */
-        Cache cache = new Cache();
-        ServerSocket ss;
+        cache = new Cache();
+        
         System.out.print("Inicializando servidor Central ");
         try {
             ss = new ServerSocket(puertoSCentral);
