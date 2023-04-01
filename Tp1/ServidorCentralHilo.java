@@ -29,7 +29,7 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void desconnectar() {
+    private void desconectar() {
         try {
             if(skHoroscopo!=null) skHoroscopo.close();
             if(skClima!=null) skClima.close();

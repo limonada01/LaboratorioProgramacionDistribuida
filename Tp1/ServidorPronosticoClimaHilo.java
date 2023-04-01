@@ -24,7 +24,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
         }
     }
 
-    private void desconnectar() {
+    private void desconectar() {
         try {
             socket.close();
         } catch (IOException ex) {
@@ -43,7 +43,7 @@ public class ServidorPronosticoClimaHilo extends Thread{
 
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        desconnectar();
+        desconectar();
     }
 
     private String getClima(){
