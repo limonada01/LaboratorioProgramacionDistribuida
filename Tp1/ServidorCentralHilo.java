@@ -29,7 +29,7 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void desconnectar() {
+    public void desconectar() {
         try {
             if(skHoroscopo!=null) skHoroscopo.close();
             if(skClima!=null) skClima.close();
@@ -51,7 +51,7 @@ public class ServidorCentralHilo extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        desconnectar();
+        desconectar();
     }
 
     private String consultaHoroscopo(String signo) {
@@ -69,7 +69,7 @@ public class ServidorCentralHilo extends Thread {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
     }
@@ -89,7 +89,7 @@ public class ServidorCentralHilo extends Thread {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
         return respuesta;
     }

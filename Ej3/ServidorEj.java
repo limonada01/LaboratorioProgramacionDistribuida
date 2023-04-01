@@ -17,7 +17,7 @@ public class ServidorEj {
                 idSession++;
             }
         } catch (IOException ex) {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServidorEj.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

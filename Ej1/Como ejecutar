@@ -4,12 +4,12 @@
 
 - Generar las clases de java:
 
-$ javac Servidor.java
+$ javac ServidorEjemplo.java
 $ javac Cliente.java
 
 - Ejecutar el servidor:
 
-$ java Servidor
+$ java ServidorEjemplo
 
 - Abrir otra terminal en el mismo directorio
 
