@@ -7,7 +7,6 @@ public class ClienteHilo extends Thread {
 
     static String[] signos={"SagitarIo","LeO","capricornio"};
     static String[] fechas={"11/05/2023","12/05/2023","13/05/2023"};
-    private int test=1;
     protected Socket sk;
     protected DataOutputStream dos;
     protected DataInputStream dis;
