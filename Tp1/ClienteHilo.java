@@ -3,17 +3,17 @@ package Tp1;
 import java.io.*;
 import java.net.Socket;
 import java.util.logging.*;
-public class Persona extends Thread {
+public class ClienteHilo extends Thread {
 
     static String[] signos={"SagitarIo","LeO","capricornio"};
     static String[] fechas={"11/05/2023","12/05/2023","13/05/2023"};
-
+    private int test=1;
     protected Socket sk;
     protected DataOutputStream dos;
     protected DataInputStream dis;
     private int id,puertoDestino;
     private String ipHost;
-    public Persona(int id, String ipHost, int puertoDestino) {
+    public ClienteHilo(int id, String ipHost, int puertoDestino) {
         this.id = id;
         this.ipHost=ipHost;
         this.puertoDestino=puertoDestino;
@@ -37,7 +37,7 @@ public class Persona extends Thread {
             dos.close();
             sk.close();
         } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
