@@ -8,7 +8,7 @@ public class ServidorCentral {
         //args[0]=puertoSCentral args[1]=ipSH args[2]=puertoSH args[3]=ipSClima args[4]=puertoSClima
         //System.out.println("------> "+args[0]);
         
-        int puertoScentral=Integer.parseInt(args[0]);
+        int puertoSCentral=Integer.parseInt(args[0]);
         String ipServidorHoroscopo=args[1];
         //System.out.println("holaa");
         String ipServidorClima=args[3];
@@ -27,7 +27,7 @@ public class ServidorCentral {
         ServerSocket ss;
         System.out.print("Inicializando servidor Central ");
         try {
-            ss = new ServerSocket(puertoScentral);
+            ss = new ServerSocket(puertoSCentral);
             System.out.println("\t[OK]");
             int idSession = 0;
             while (true) {
