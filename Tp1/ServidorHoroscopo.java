@@ -5,10 +5,11 @@ import java.net.*;
 import java.util.logging.*;
 
 public class ServidorHoroscopo {
+    static private int puertoSH;
+    static private ServerSocket ss;
     public static void main(String args[]) throws IOException {
         //args[0]=puerto servidor Horoscopo
-        int puertoSH=Integer.parseInt(args[0]);
-        ServerSocket ss;
+        puertoSH=Integer.parseInt(args[0]);
         System.out.print("Inicializando servidor Horoscopo ");
         try {
             ss = new ServerSocket(puertoSH);
