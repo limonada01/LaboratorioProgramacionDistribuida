@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 public class Cliente {
     static private String ipHost;
     static private int puertoDestino;
-    static private String[] signos={"SagitarIo","LeO","capricornio"};
-    static private String[] fechas={"11/05/2023","12/05/2023","13/05/2023"};
     static private Socket sk;
     static private DataOutputStream dos;
     static private DataInputStream dis;
@@ -52,7 +50,7 @@ public class Cliente {
             dos.close();
             sk.close();
         } catch (IOException ex) {
-            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
     }
 
