@@ -51,7 +51,7 @@ public class ServidorCentralHilo extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        desconnectar();
+        desconectar();
     }
 
     private String consultaHoroscopo(String signo) {
@@ -112,10 +112,7 @@ public class ServidorCentralHilo extends Thread {
             skClima = new Socket(ipSClima, puertoSClima);
             dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
             disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
-
-
         } catch (IOException ex) {
-
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
