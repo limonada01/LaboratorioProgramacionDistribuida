@@ -7,11 +7,12 @@ import java.rmi.registry.LocateRegistry;
 public class Servidor_Clima {
     static public void main(String args[]) {
 
-        try { 
-            LocateRegistry.createRegistry(54322);
+        try {
+
+            LocateRegistry.createRegistry(Integer.parseInt(args[0]));
             Servicio_Clima servicio_clima = new Servicio_Clima_Imp();
             //Naming.rebind("rmi://localhost:" + args[0] + "/CalculadoraImp", calc);  }
-            Naming.rebind("rmi://localhost:" + "54322" + "/Servicio_Clima_Imp", servicio_clima);  }
+            Naming.rebind("rmi://localhost:" + args[0] + "/Servicio_Clima_Imp", servicio_clima);  }
         catch (RemoteException e) {
             System.err.println("Error de comunicacion: " + e.toString());
             System.exit(1); }

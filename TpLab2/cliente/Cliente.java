@@ -6,10 +6,10 @@ import java.util.Scanner;
 import TpLab2.servidor_central.Servicio_Consulta;
 
 public class Cliente {
-    
-    public Cliente(){
+
+    public static void main(String[] args){
         try {	
-            Servicio_Consulta servicio_consulta = (Servicio_Consulta)Naming.lookup ("//localhost:54323/Servicio_Consulta_Imp");
+            Servicio_Consulta servicio_consulta = (Servicio_Consulta)Naming.lookup ("//"+args[0]+":"+args[1]+"/Servicio_Consulta_Imp");
             Scanner sc= new Scanner(System.in);
             boolean repetir=true;
             while(repetir) {
@@ -36,7 +36,4 @@ public class Cliente {
         return signo+"-"+fecha;
     }
 
-    public static void main(String[] args) {
-     new Cliente();
-    }
 }

@@ -12,10 +12,18 @@ import TpLab2.servidor_horoscopo.Servicio_Horoscopo;
 public class Servicio_Consulta_Imp extends UnicastRemoteObject implements Servicio_Consulta {
     
     static private Cache cache;
+    static private String puertoHoroscopo;
+    static private String ipSvHoroscopo;
+    static private String puertoClima;
+    static private String ipSvClima;
 
-    protected Servicio_Consulta_Imp(Cache cache) throws RemoteException{
+    protected Servicio_Consulta_Imp(Cache cache, String ipSvHoroscopo, String puertoH,String ipSvClima, String puertoC) throws RemoteException{
         super();
         this.cache = cache;
+        this.puertoHoroscopo = puertoH;
+        this.puertoClima = puertoC;
+        this.ipSvHoroscopo = ipSvHoroscopo;
+        this.ipSvClima = ipSvClima;
     }
 
     @Override
@@ -40,7 +48,7 @@ public class Servicio_Consulta_Imp extends UnicastRemoteObject implements Servic
             respuesta= cache.getConsulta(signo);
             if(respuesta==null){
                 if(cache.realizarConsulta(signo)) { //Si el hilo fue elegido para hacer la consulta
-                    Servicio_Horoscopo servicio_horoscopo = (Servicio_Horoscopo)Naming.lookup ("//localhost:54321/Servicio_Horoscopo_Imp");
+                    Servicio_Horoscopo servicio_horoscopo = (Servicio_Horoscopo)Naming.lookup ("//"+ipSvHoroscopo+":"+puertoHoroscopo+"/Servicio_Horoscopo_Imp");
                     respuesta = servicio_horoscopo.getHoroscopo(signo);
                     cache.putRespuesta(signo, respuesta);
                 }else{
@@ -59,7 +67,7 @@ public class Servicio_Consulta_Imp extends UnicastRemoteObject implements Servic
             respuesta= cache.getConsulta(fecha);
             if(respuesta==null){ //Si no lo pudo obtener de cache
                 if(cache.realizarConsulta(fecha)){ //Si el hilo fue elegido para hacer la consulta
-                    Servicio_Clima servicio_clima= (Servicio_Clima)Naming.lookup ("//localhost:54322/Servicio_Clima_Imp");
+                    Servicio_Clima servicio_clima= (Servicio_Clima)Naming.lookup ("//"+ipSvClima+":"+puertoClima+"/Servicio_Clima_Imp");
                     respuesta = servicio_clima.getClima(fecha);
                     cache.putRespuesta(fecha, respuesta);
                 }else{//Si el hilo viene de estar bloqueado esperando a que se cargue en cache la saca de ahi
