@@ -21,8 +21,9 @@ public class Cliente {
 
     public static void main(String[] args) {
         //args[0]=cantidadDeClientes args[1]=ipHost args[2]=puertoDestino
-        ipHost=args[1];
-        puertoDestino=Integer.parseInt(args[2]);
+        //test
+        ipHost=args[0];
+        puertoDestino=Integer.parseInt(args[1]);
 
         Scanner sc= new Scanner(System.in);
         boolean repetir=true;

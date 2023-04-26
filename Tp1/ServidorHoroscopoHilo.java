@@ -62,7 +62,7 @@ public class ServidorHoroscopoHilo extends Thread{
                 String respuesta=getHoroscopo();
                 dosCliente.writeUTF("Horoscopo de "+signoSolicitado+ ": "+respuesta);//respuesta final para cliente (osea Servidor-Central en este caso)
             }else{
-                dosCliente.writeUTF("ERROR: Signo del zodiaco no valido ");//respuesta final para cliente (osea Servidor-Central en este caso)
+                dosCliente.writeUTF("ERROR: Signo del zodiaco no valido");//respuesta final para cliente (osea Servidor-Central en este caso)
             }
 
         } catch (IOException ex) {

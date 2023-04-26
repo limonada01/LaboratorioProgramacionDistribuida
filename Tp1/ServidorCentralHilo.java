@@ -69,7 +69,7 @@ public class ServidorCentralHilo extends Thread {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return respuesta;
     }
@@ -89,7 +89,7 @@ public class ServidorCentralHilo extends Thread {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return respuesta;
     }
