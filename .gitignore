@@ -1,6 +1,6 @@
+.gitignore
 /out
 /.idea
-/.gitignore
 /.vscode
 *.iml
 /TpLab2/out
