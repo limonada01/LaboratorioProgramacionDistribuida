@@ -1,18 +1,11 @@
-package Tp1;
+package TpLab2.servidor_central;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-
 public class Cache {
-<<<<<<< HEAD
-    Map<String, String> consultas;
-    Semaphore mutex = new Semaphore(1);
-    ArrayList<String> consultasEnEspera= new ArrayList<String>();
-    public Cache(){
-        consultas = new HashMap<String, String>();
-=======
     private Map<String, String> consultas;
     private Semaphore mutex; 
     private ArrayList<String> consultasEnEspera;
@@ -20,7 +13,6 @@ public class Cache {
         this.mutex= new Semaphore(1);
         this.consultasEnEspera=  new ArrayList<String>();
         this.consultas = new HashMap<String, String>();
->>>>>>> 319a6d8019a8ccc2ee192d1d3f965f099568cf23
     }
 
     public String getConsulta(String consulta){ //Recibimos o el horoscopo o la fecha

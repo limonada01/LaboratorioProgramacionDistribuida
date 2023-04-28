@@ -1,0 +1,9 @@
+S central: java ServidorCentral.java 10578 127.0.0.1 20000 127.0.0.1 20001
+//args[0]=puertoSCentral args[1]=ipSH args[2]=puertoSH args[3]=ipSClima args[4]=puertoSClima
+
+S Horoscopo: java ServidorHoroscopo.java 20000
+
+S Clima: java ServidorClima.java 20001
+
+Cliente: java Cliente.java 10 127.0.0.1 10578
+//args[0]=cantidadDeClientes args[1]=ipHost args[2]=puertoDestino

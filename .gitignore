@@ -1,3 +1,6 @@
-/out
-/.idea
-/.gitignore
+.idea
+.vscode
+out
+*.iml
+/TpLab2/.idea
+/TpLab2/out

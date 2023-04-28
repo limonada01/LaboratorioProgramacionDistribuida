@@ -3,11 +3,17 @@ import java.io.*;
 import java.net.*;
 import java.util.logging.*;
 public class ServidorPronosticoClima {
+<<<<<<< HEAD
+=======
+    static private int puertoSClima;
+    static private ServerSocket ss;
+>>>>>>> 319a6d8019a8ccc2ee192d1d3f965f099568cf23
     public static void main(String args[]) throws IOException {
-        ServerSocket ss;
+        //args[0]=puerto servidor Clima
+        puertoSClima=Integer.parseInt(args[0]);
         System.out.print("Inicializando servidor Pronostico Clima... ");
         try {
-            ss = new ServerSocket(20001);
+            ss = new ServerSocket(puertoSClima);
             System.out.println("\t[OK]");
             int idSession = 0;
             while (true) {

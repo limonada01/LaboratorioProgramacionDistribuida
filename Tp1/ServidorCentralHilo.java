@@ -9,10 +9,16 @@ public class ServidorCentralHilo extends Thread {
 
     private Cache cache;
     private int idSession;
-    public ServidorCentralHilo(Socket socket, int id, Cache cache) {
+    private String ipSH,ipSClima;
+    private int puertoSH,puertoSClima;
+    public ServidorCentralHilo(Socket socket, int id, Cache cache, String ipSH, String ipSClima, int puertoSH, int puertoSClima) {
         this.socket = socket;
         this.idSession = id;
         this.cache = cache;
+        this.ipSH=ipSH;
+        this.ipSClima=ipSClima;
+        this.puertoSH=puertoSH;
+        this.puertoSClima=puertoSClima;
 
         try {
             dosCliente = new DataOutputStream(socket.getOutputStream());
@@ -23,7 +29,7 @@ public class ServidorCentralHilo extends Thread {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void desconnectar() {
+    private void desconectar() {
         try {
             if(skHoroscopo!=null) skHoroscopo.close();
             if(skClima!=null) skClima.close();
@@ -45,7 +51,7 @@ public class ServidorCentralHilo extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        desconnectar();
+        desconectar();
     }
 
     private String consultaHoroscopo(String signo) {
@@ -63,7 +69,7 @@ public class ServidorCentralHilo extends Thread {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return respuesta;
     }
@@ -83,7 +89,7 @@ public class ServidorCentralHilo extends Thread {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return respuesta;
     }
@@ -91,7 +97,11 @@ public class ServidorCentralHilo extends Thread {
     private void establecerConexionHoroscopo(){
         try {
             //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
+<<<<<<< HEAD
                 skHoroscopo = new Socket("127.0.0.1", 20000);
+=======
+                skHoroscopo = new Socket(ipSH, puertoSH);
+>>>>>>> 319a6d8019a8ccc2ee192d1d3f965f099568cf23
                 dosHoroscopo = new DataOutputStream(skHoroscopo.getOutputStream());//buffer de salida
                 disHoroscopo = new DataInputStream(skHoroscopo.getInputStream());//buffer de entrada
         } catch (IOException ex) {
@@ -103,6 +113,7 @@ public class ServidorCentralHilo extends Thread {
     private void establecerConexionClima(){
         try {
             //Cada servidor debe arrancar en un puerto diferente, aca hacemos referencia al puerto al cual nos queremos conectar
+<<<<<<< HEAD
             skClima = new Socket("127.0.0.1", 20001);
             dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
             disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
@@ -110,6 +121,12 @@ public class ServidorCentralHilo extends Thread {
 
         } catch (IOException ex) {
 
+=======
+            skClima = new Socket(ipSClima, puertoSClima);
+            dosClima = new DataOutputStream(skClima.getOutputStream());//buffer de salida
+            disClima = new DataInputStream(skClima.getInputStream());//buffer de entrada
+        } catch (IOException ex) {
+>>>>>>> 319a6d8019a8ccc2ee192d1d3f965f099568cf23
             Logger.getLogger(ServidorCentralHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

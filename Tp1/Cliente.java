@@ -1,14 +1,73 @@
 package Tp1;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+>>>>>>> 319a6d8019a8ccc2ee192d1d3f965f099568cf23
 public class Cliente {
+    static private String ipHost;
+    static private int puertoDestino;
+    static private Socket sk;
+    static private DataOutputStream dos;
+    static private DataInputStream dis;
+
     public static void main(String[] args) {
-        ArrayList<Thread> clients = new ArrayList<Thread>();
-        for (int i = 0; i < 5; i++) {
-            clients.add(new Persona(i));
+        //args[0]=cantidadDeClientes args[1]=ipHost args[2]=puertoDestino
+        ipHost=args[0];
+        puertoDestino=Integer.parseInt(args[1]);
+
+        Scanner sc= new Scanner(System.in);
+        boolean repetir=true;
+        while(repetir) {
+            consulta();
+            System.out.println("Hacer otra consulta? (Ingrese 1: Si, 0: No)");
+            repetir = sc.nextInt()==1;
         }
-        for (Thread thread : clients) {
-            thread.start();
+    }
+
+    public static void consulta(){
+        try {
+            sk = new Socket(ipHost,puertoDestino);
+            dos = new DataOutputStream(sk.getOutputStream());//buffer de salida
+            dis = new DataInputStream(sk.getInputStream());//buffer de entrada
+            String consulta = solicitarDatos();
+            System.out.println("Cliente consulta horoscopo y clima: "+consulta);
+            dos.writeUTF(consulta);
+
+            String respuesta="";
+
+            respuesta = dis.readUTF();
+            System.out.println("Servidor devuelve: " +respuesta+ ". como respuesta");
+            dis.close();
+            dos.close();
+            sk.close();
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
+    }
+
+    public static String solicitarDatos(){
+        Scanner sc= new Scanner(System.in);
+        String fecha="";
+        System.out.println("/////////DATOS HOROSCOPO/////////");
+        System.out.println("Ingrese un signo del horoscopo");
+        String signo = sc.nextLine();
+        System.out.println("/////////DATOS FECHA PARA SABER EL CLIMA/////////");
+        System.out.println("Ingrese una fecha con formato dd/mm/aaaa");
+        fecha=sc.nextLine();
+        return signo+"-"+fecha;
     }
 }
 
