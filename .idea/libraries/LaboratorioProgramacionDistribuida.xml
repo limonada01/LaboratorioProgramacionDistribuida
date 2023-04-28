@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="LaboratorioProgramacionDistribuida">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Ej3.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Ej1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Ej2.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

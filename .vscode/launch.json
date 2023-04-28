@@ -1,0 +1,91 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Cliente",
+            "request": "launch",
+            "mainClass": "Cliente",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "Servidor",
+            "request": "launch",
+            "mainClass": "Servidor",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "ServidorEj",
+            "request": "launch",
+            "mainClass": "ServidorEj",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "Cliente(1)",
+            "request": "launch",
+            "mainClass": "Tp1.Cliente",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "ServidorCentral",
+            "request": "launch",
+            "mainClass": "Tp1.ServidorCentral",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "ServidorHoroscopo",
+            "request": "launch",
+            "mainClass": "Tp1.ServidorHoroscopo",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "ServidorPronosticoClima",
+            "request": "launch",
+            "mainClass": "Tp1.ServidorPronosticoClima",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "Tp1.test",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "MainCliente",
+            "request": "launch",
+            "mainClass": "cliente.MainCliente",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "main",
+            "request": "launch",
+            "mainClass": "main",
+            "projectName": "Recursos_ce1e1071"
+        },
+        {
+            "type": "java",
+            "name": "MainServer",
+            "request": "launch",
+            "mainClass": "server.MainServer",
+            "projectName": "Recursos_ce1e1071"
+        }
+    ]
+}
