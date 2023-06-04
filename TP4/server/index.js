@@ -20,56 +20,62 @@ io.on('connection',(socket)=>{
       addPlayer()
       socket.emit("playResp",{nroJugador: estado.jugadores})//Si se agrego se le envia su numero de jugador
     }else{
-      socket.emit("playResp",{nroJugador: -1}) //Si ya esta lleno devuelve 0 indicando que no hay lugar
+      socket.emit("playResp",{nroJugador: -1}) //Si ya esta lleno devuelve -1 indicando que no hay lugar
     }
     io.emit("state", estado)
   })
 
+  //REALIZAR MOVIMIENTO
   socket.on('mov',(data)=>{
-    realizarMov(data.nuevoTablero)
+    console.log("jugador id:", socket.id,"realiza un movimiento")
+    const {nuevoTablero}=data
+    realizarMov(nuevoTablero)
     
     /* 
-    Si continua partida retorna el estado
-    Si gano uno retorna 1
-    Si hay empate retorna 2
-    */
-   let resp="";
-   let verifTablero= verificarTablero(data.nuevoTablero)
-   switch(verifTablero){
-    case 0://Si sigue la partida envia el estado
+      Si continua partida nroGanador= 0
+      Si hay empate nroGanador= 3
+      Caso contrario nroGanador=nroUltimo jugador
+  
+      verifTablero=0 <-- continua
+      verifTablero=1 <-- victoria de alguno
+      verifTablero=2 <-- empate
+    */ 
+    let verifTablero= verificarTablero(nuevoTablero)
+    let ganador=0;
+    if(verifTablero==1){//Si gano alguno
+      ganador=estado.jugadorTurno//El jugador actual es el ganador
+      estado.finalizado=true
+      console.log("GANO JUGADOR Nro: ",estado.jugadorTurno)
+    }else if(verifTablero==2){//Si hay empate
+      ganador=3 //Ganador=3 significa empate
+      estado.finalizado=true
+      console.log("EMPATE")
+    }else{//Si continua el juego
       cambioTurno()
-      
-      break
-    case 1: //Victoria de alguno
-      io.emit("ganador",estado.jugadorTurno)
-      break
-    case 2://Empate
-      io.emit("ganador",-1)
-      break
-   }
-   io.emit("state", estado)
+    }
+    io.emit("resultMov", {state: estado, nroGanador:ganador})
+  })
 
-
-   if(verifTablero==1){
-    resp=1
-   }else if(verifTablero==2){
-    resp=2
-   }
-    io.emit("resultMov", resp)
+  socket.on('reset',(data)=>{
+    console.log("SE RESETEA LA PARTIDA")
+    estado={... initEstado}//Clona initEstado
+    io.emit("reset", estado)
   })
 })
 /* const wss = new WebSocket.Server({port:8000}) */
-
-const estado = {
+const initEstado = {
   tablero:[
-    [1, 0, 0],
-    [0, 2, 0],
-    [0, 0, 1]
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
   ],
   jugadorTurno: 1,
   jugadores:0,
   enJuego:false,
+  finalizado:false
 }
+
+let estado = {...initEstado}
 
 const addPlayer= ()=>{
   estado.jugadores+=1
