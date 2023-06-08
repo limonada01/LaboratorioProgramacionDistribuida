@@ -1,0 +1,58 @@
+.tableContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.button{
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 2em;
+  color: black;
+  margin: 3.5vh 0 5vh 0;
+}
+.play{
+  background-color: #4f7fc7;
+}
+.reset{
+  background-color: rgb(221, 74, 74);
+}
+.table{
+  background-color: black;
+}
+.celda{
+  background-color: white;
+  width: 10vh;
+  height: 10vh;
+}
+
+.icon{
+  width: 10vh;
+  height: 10vh;
+}
+.circle{
+  
+  filter: invert(37%) sepia(85%) saturate(4457%) hue-rotate(345deg) brightness(108%) contrast(91%);
+  
+}
+.cross{
+
+  filter: invert(44%) sepia(75%) saturate(493%) hue-rotate(162deg) brightness(93%) contrast(97%);
+}
+
+.containerMessage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.littleIcon{
+  width: 5vh;
+  height: 5vh;
+  margin-right: 2vh;
+}
