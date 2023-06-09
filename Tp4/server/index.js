@@ -29,6 +29,7 @@ io.on('connection',(socket)=>{
   socket.on('mov',(data)=>{
     console.log("jugador id:", socket.id,"realiza un movimiento")
     const {nuevoTablero}=data
+    console.log(nuevoTablero)
     realizarMov(nuevoTablero)
     
     /* 
