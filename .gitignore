@@ -4,16 +4,11 @@ out
 *.iml
 /TpLab2/.idea
 /TpLab2/out
-<<<<<<< HEAD
 /RMI
 /Tp1
 /TpLab2
 /Ej1.zip
 /Ej2.zip
 /Ej3.zip
-=======
-/node_modules
 /Tp4/server/node_modules
 /Tp4/tateti/node_modules
-/TP4malo
->>>>>>> 54886da7c08f4709ac5745c32fcc134f477902aa
