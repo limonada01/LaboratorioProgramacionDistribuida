@@ -144,5 +144,5 @@ export const GameScreen = ()=>{
       />
       {juego.finalizado && nroJugador!=-1 && <button className="button reset" onClick={resetOnClick}>Resetear</button>}
     </div>
-  )
+  )//fixed
 }
