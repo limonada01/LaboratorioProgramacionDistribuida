@@ -20,7 +20,8 @@ export const GameScreen = ()=>{
   //-1=empate,0=enjuego, 1=jugador1, 2=jugador2, 
   const[nroGanador, setNroGanador] = useState(0)
   const[jugando, setJugando] = useState(false)
-  
+
+  const[haceMov, setHaceMov]=useState(false);
   const resetOnClick = async()=>{
     socket.emit('reset',{
     
@@ -35,6 +36,12 @@ export const GameScreen = ()=>{
   useEffect(()=>{
     if(juego.enJuego && nroJugador==0){//Si arranca el juego y no fue elegido
       setNroJugador(-1)//Se le asigna numero de jugador -1
+    }
+    if(haceMov){
+      socket.emit('mov',{
+        nuevoTablero : juego.tablero
+      })
+      setHaceMov(false)
     }
   },[juego])  
 
@@ -123,6 +130,7 @@ export const GameScreen = ()=>{
       {
         !jugando &&
         nroGanador!=0 &&
+        nroGanador!=3 &&
         <h1 style={{color:"white"}}>GANO JUGADOR: {nroGanador}</h1>
       }
       {nroGanador==3 && <h1 style={{color:"white"}}>EMPATE</h1>}
@@ -131,8 +139,10 @@ export const GameScreen = ()=>{
         juego={juego}
         nroJugador={nroJugador}
         nroGanador={nroGanador}
+        setJuego={setJuego}
+        setHaceMov={setHaceMov}
       />
       {juego.finalizado && nroJugador!=-1 && <button className="button reset" onClick={resetOnClick}>Resetear</button>}
     </div>
-  )//fixed
+  )
 }
