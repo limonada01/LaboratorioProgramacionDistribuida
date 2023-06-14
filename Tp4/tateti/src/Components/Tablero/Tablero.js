@@ -34,8 +34,6 @@ export const Tablero = (props)=>{
       setHaceMov(true)
     
     }
-
-    
   }
 
   const generateBoard = () => {
@@ -47,7 +45,7 @@ export const Tablero = (props)=>{
   
       for (let j = 0; j < 3; j++) {
         let cellContent = ''; // Valor por defecto
-        if (juego.tablero[i][j] === 1) {
+        if (juego.tablero[i][j] === 1) {//explicame esto..
           cellContent = <img src={circleSvg} alt="O" className="icon circle" />;
         } else if (juego.tablero[i][j] === 2) {
           cellContent = <img src={crossSvg} alt="X" className="icon cross" />;
