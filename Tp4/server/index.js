@@ -15,7 +15,7 @@ io.on('connection',(socket)=>{
 
   //AÑADIR JUGADORES A LA PARTIDA
   socket.on('play',(data)=>{
-    console.log("Usuario "+data.usuario+ " se quiere unir a la partida")
+    console.log("Usuario "+data.jugadorId+ " se quiere unir a la partida")
     if(estado.jugadores<2){
       addPlayer()
       socket.emit("playResp",{nroJugador: estado.jugadores})//Si se agrego se le envia su numero de jugador
@@ -29,7 +29,6 @@ io.on('connection',(socket)=>{
   socket.on('mov',(data)=>{
     console.log("jugador id:", socket.id,"realiza un movimiento")
     const {nuevoTablero}=data
-    console.log(nuevoTablero)
     realizarMov(nuevoTablero)
     
     /* 
