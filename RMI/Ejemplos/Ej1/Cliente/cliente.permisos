@@ -1,3 +1,0 @@
-grant codeBase "file:/RMI/Ejemplos/Ej1" {
-    permission java.security.AllPermission;
-};

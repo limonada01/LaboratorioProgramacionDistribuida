@@ -4,7 +4,11 @@ out
 *.iml
 /TpLab2/.idea
 /TpLab2/out
-/node_modules
+/RMI
+/Tp1
+/TpLab2
+/Ej1.zip
+/Ej2.zip
+/Ej3.zip
 /Tp4/server/node_modules
 /Tp4/tateti/node_modules
-/TP4malo
