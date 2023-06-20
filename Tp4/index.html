@@ -54,16 +54,18 @@
   </div>
 
   <div class="buttons">
-    <button class="button" onclick="playGame()">Play</button>
-    <button class="button" onclick="resetGame()">Reset</button>
+    <button class="button" id="play" onclick="playGame()">Play</button>
+    <button class="button" id="reset" onclick="resetGame()">Reset</button>
   </div>
   
   <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
   <script>
     const socket = io('http://localhost:8000');
     let isPlaying = false;
+    let jugadores=0;
     let nroJugador= 0;
-    let jugadorTurno=1
+    let jugadorTurno=1;
+    let espectador=false;
     socket.on('connect', () => {
       console.log('Conectado al servidor');
     });
@@ -75,12 +77,22 @@
     socket.on('state', (data) => {
       const { tablero} = data;
       jugadorTurno=data.jugadorTurno
+      jugadores= data.jugadores
       updateBoard(tablero);
+      if(jugadores>=2 && !isPlaying && !espectador){
+        createTitle("ESPECTADOR")
+        espectador=true
+      }
     });
 
     socket.on('playResp',(data) => {
       nroJugador=data.nroJugador
-      isPlaying = true;
+      if(jugadores<2 && !isPlaying){
+        isPlaying = true;
+        removeButton("play")
+        createTitle("JUGANDO")
+      }
+    
     })
 
     socket.on('resultMov', (data) => {
@@ -97,10 +109,18 @@
       }
     });
 
+    function createTitle(msg){
+      let titleNode = document.createElement("h1");
+      titleNode.textContent=msg;
+      let board = document.querySelector(".board");
+      board.insertBefore(titleNode, board.firstChild)
+    }
+    function removeButton(id){
+      let button = document.getElementById(id);
+      button.remove();
+    }
     function makeMove(row, col) {
-      
       if (isPlaying && nroJugador==jugadorTurno) {
-        console.log("AAA")
         const nuevoTablero = JSON.parse(JSON.stringify(getBoardState()));
         if (nuevoTablero[row][col] === 0) {
           nuevoTablero[row][col] = getPlayer();
@@ -179,8 +199,10 @@
     }
 
     const playGame = async () => {
-      const jugadorId = socket.id;
-      socket.emit('play', { jugadorId });
+      if(!isPlaying){
+        const jugadorId = socket.id;
+        socket.emit('play', { jugadorId });
+      }
     };
 
     function resetGame() {
