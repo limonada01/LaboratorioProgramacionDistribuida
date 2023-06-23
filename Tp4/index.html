@@ -90,7 +90,8 @@
       if(jugadores<2 && !isPlaying){
         isPlaying = true;
         removeButton("play")
-        createTitle("JUGANDO")
+        const playerFigure= nroJugador==1?"X":"O"
+        createTitle("JUGANDO: "+playerFigure)
       }
     
     })
@@ -103,18 +104,35 @@
       if (finalizado) {
         if (nroGanador === 3) {
           alert('¡Empate!');
+          isPlaying=false
         } else {
           alert(`¡Jugador ${nroGanador} ha ganado!`);
+          isPlaying=false
         }
       }
+    });
+
+    socket.on('reset', (data) => {
+      restart(data)
     });
 
     function createTitle(msg){
       let titleNode = document.createElement("h1");
       titleNode.textContent=msg;
+      titleNode.id="titleMsg"
       let board = document.querySelector(".board");
       board.insertBefore(titleNode, board.firstChild)
     }
+
+    function createPlayButton(){
+      let button = document.createElement("button");
+      button.textContent="Play";
+      button.id="play"
+      button.onclick=playGame
+      let container = document.querySelector(".buttons");
+      container.insertBefore(button, container.firstChild)
+    }
+
     function removeButton(id){
       let button = document.getElementById(id);
       button.remove();
@@ -207,7 +225,17 @@
 
     function resetGame() {
       socket.emit('reset');
-      isPlaying = false;
+    }
+
+    function restart(data){
+      if(nroJugador>0) createPlayButton()
+      isPlaying = data.finalizado;
+      jugadores=data.jugadores;
+      nroJugador= 0;
+      jugadorTurno=data.jugadorTurno;
+      espectador=false;
+      let titleMsg = document.getElementById("titleMsg");
+      titleMsg.remove();
       const cells = document.querySelectorAll('.cell');
       for (let i = 0; i < cells.length; i++) {
         cells[i].textContent = '';

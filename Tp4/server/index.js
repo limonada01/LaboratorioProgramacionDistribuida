@@ -71,7 +71,6 @@ const initEstado = {
   ],
   jugadorTurno: 1,
   jugadores:0,
-  enJuego:false,
   finalizado:false
 }
 
@@ -79,9 +78,6 @@ let estado = {...initEstado}
 
 const addPlayer= ()=>{
   estado.jugadores+=1
-  if(estado.jugadores==2){//Si hay dos jugadores arranca el juego
-    estado.enJuego=true;
-  }
 }
 
 const cambioTurno=()=>{
