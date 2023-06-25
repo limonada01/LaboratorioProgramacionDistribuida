@@ -4,9 +4,9 @@ const server= http.createServer()
 const io = require('socket.io')(server, {//maneja las conexiones
   cors: { origin:'*'}//de cualquier origen
 })
-server.listen(8000)//se le asigna al servidor el puerto 8000
+server.listen(8000)//el servidor comienza a escuchar en el puerto 8000
 
-io.on('connection',(socket)=>{
+io.on('connection',(socket)=>{//cuando un cliente establece una conexion mediante io(...)
   console.log("Nuevo cliente conectado!")
   //ENVIAR ESTADO
   io.emit("state", estado)//Le envia el estado actual del juego al jugador conectado

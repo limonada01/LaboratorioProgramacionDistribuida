@@ -55,7 +55,7 @@
 
   <div class="buttons">
     <button class="button" id="play" onclick="playGame()">Play</button>
-    <button class="button" id="reset" onclick="resetGame()">Reset</button>
+    <!--<button class="button" id="reset" onclick="resetGame()">Reset</button>--> 
   </div>
   
   <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
@@ -83,7 +83,7 @@
       if(jugadores>=2 && !isPlaying && !espectador){
         createTitle("ESPECTADOR")
         removeButton("play")
-        removeButton("reset")
+        //removeButton("reset")
         espectador=true
       }
     });
@@ -93,6 +93,7 @@
       if(jugadores<2 && !isPlaying){
         isPlaying = true;
         removeButton("play")
+        //removeButton("reset")
         const playerFigure= nroJugador==1?"X":"O"
         createTitle("JUGANDO: "+playerFigure)
       }
@@ -112,11 +113,15 @@
           alert(`¡Jugador ${nroGanador} ha ganado!`);
           isPlaying=false
         }
+        if (!espectador){
+          createResetButton()
+        }
       }
     });
 
     socket.on('reset', (data) => {
       restart(data)
+      removeButton('reset')
     });
 
     function createTitle(msg){
@@ -132,6 +137,15 @@
       button.textContent="Play";
       button.id="play"
       button.onclick=playGame
+      let container = document.querySelector(".buttons");
+      container.insertBefore(button, container.firstChild)
+    }
+
+    function createResetButton(){
+      let button = document.createElement("button");
+      button.textContent="Reset";
+      button.id="reset"
+      button.onclick=resetGame
       let container = document.querySelector(".buttons");
       container.insertBefore(button, container.firstChild)
     }
@@ -204,21 +218,6 @@
       }
     }
 
-    function getPlayer() {
-      const cells = document.querySelectorAll('.cell');
-      let countX = 0;
-      let countO = 0;
-
-      for (let i = 0; i < cells.length; i++) {
-        if (cells[i].textContent === 'X') {
-          countX++;
-        } else if (cells[i].textContent === 'O') {
-          countO++;
-        }
-      }
-
-      return countX <= countO ? 1 : 2;
-    }
 
     const playGame = () => {
       if(!isPlaying){
@@ -232,7 +231,7 @@
     }
 
     function restart(data){
-      if(nroJugador>0) createPlayButton()
+      createPlayButton()
       isPlaying = data.finalizado;
       jugadores=data.jugadores;
       nroJugador= 0;
