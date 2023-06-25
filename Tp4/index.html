@@ -60,7 +60,7 @@
   
   <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
   <script>
-    const socket = io('http://localhost:8000');
+    const socket = io('http://localhost:8000');// inicializo el socket, le paso la direccion del servidor
     let isPlaying = false;
     let jugadores=0;
     let nroJugador= 0;
@@ -75,12 +75,15 @@
     });
 
     socket.on('state', (data) => {
+      console.log("alguien le dio a play")
       const { tablero} = data;
       jugadorTurno=data.jugadorTurno
       jugadores= data.jugadores
       updateBoard(tablero);
       if(jugadores>=2 && !isPlaying && !espectador){
         createTitle("ESPECTADOR")
+        removeButton("play")
+        removeButton("reset")
         espectador=true
       }
     });
@@ -141,7 +144,8 @@
       if (isPlaying && nroJugador==jugadorTurno) {
         const nuevoTablero = JSON.parse(JSON.stringify(getBoardState()));
         if (nuevoTablero[row][col] === 0) {
-          nuevoTablero[row][col] = getPlayer();
+          //nuevoTablero[row][col] = getPlayer();
+          nuevoTablero[row][col] = nroJugador;
           socket.emit('mov', { nuevoTablero });
         }
       }
@@ -216,7 +220,7 @@
       return countX <= countO ? 1 : 2;
     }
 
-    const playGame = async () => {
+    const playGame = () => {
       if(!isPlaying){
         const jugadorId = socket.id;
         socket.emit('play', { jugadorId });
