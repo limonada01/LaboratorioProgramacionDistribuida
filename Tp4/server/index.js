@@ -1,11 +1,10 @@
-const WebSocket = require("ws")
 const http = require('http')
 const server= http.createServer()
 
-const io = require('socket.io')(server, {
-  cors: { origin:'*'}
+const io = require('socket.io')(server, {//maneja las conexiones
+  cors: { origin:'*'}//de cualquier origen
 })
-server.listen(8000)
+server.listen(8000)//se le asigna al servidor el puerto 8000
 
 io.on('connection',(socket)=>{
   console.log("Nuevo cliente conectado!")
